@@ -7,7 +7,6 @@ import cities from "../data/cities.json";
 
 import { BLUE } from "../config/styles";
 
-
 const StyledEvents = styled.div`
   display: flex;
   flex-direction: column;
@@ -73,36 +72,13 @@ const Events = () => (
         return +new Date(a.startDate) - +new Date(b.startDate);
       })
       .map((event, i, arr) => {
-        let row;
-        console.log(arr[i].startDate)
-        debugger;
-        if (event.startDate !== arr[i - 1].startDate) {
-          row = (
-            <div>
-              <Moment className="event-date" format="dddd D MMM YYYY">
-                {event.startDate}
-              </Moment>
-              <div className="event-row">
-                <div className="event-row--description">
-                  <Moment format="HH:mm ">{event.startDate}</Moment>
-                  <div className="event-name">
-                    <p>{event.name}</p>
-                    <p>
-                      {cities.map(city =>
-                        city.id === event.city ? city.name : ""
-                      )}
-                    </p>
-                  </div>
-                  <p>{event.isFree ? "FREE!!" : ""}</p>
-                </div>
-                <div className="event-row--signup">
-                  <button>Sign Up</button>
-                </div>
-              </div>
-            </div>
-          );
-        } else {
-          row = (
+        return !arr[i - 1] ||
+          new Date(event.startDate).setHours(0, 0, 0, 0) !==
+            new Date(arr[i - 1].startDate).setHours(0, 0, 0, 0) ? (
+          <div className="event-group" key={i}>
+            <Moment className="event-date" format="dddd D MMM YYYY">
+              {event.startDate}
+            </Moment>
             <div className="event-row">
               <div className="event-row--description">
                 <Moment format="HH:mm ">{event.startDate}</Moment>
@@ -120,12 +96,24 @@ const Events = () => (
                 <button>Sign Up</button>
               </div>
             </div>
-          );
-        }
-
-        return (
-          <div className="event-group" key={i}>
-            {row}
+          </div>
+        ) : (
+          <div className="event-row">
+            <div className="event-row--description">
+              <Moment format="HH:mm ">{event.startDate}</Moment>
+              <div className="event-name">
+                <p>{event.name}</p>
+                <p>
+                  {cities.map(city =>
+                    city.id === event.city ? city.name : ""
+                  )}
+                </p>
+              </div>
+              <p>{event.isFree ? "FREE!!" : ""}</p>
+            </div>
+            <div className="event-row--signup">
+              <button>Sign Up</button>
+            </div>
           </div>
         );
       })}
