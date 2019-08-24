@@ -97,12 +97,21 @@ const StyledRow = styled.div`
   }
 `;
 
+
 const Events = () => {
   const [showModal, setShowModal] = useState(false);
-  const onSignUp = () => {
+  const [dataModal, setDataModal] = useState({name:'',date:'', place:0});
+
+  const onSignUp = (name:string, date:string, place:number) => {
+    setDataModal({name, date, place})
     setShowModal(true);
   };
-  console.log(showModal)
+
+  const closeModal = () => {
+    setShowModal(false)
+  };
+
+  console.log(dataModal)
   return (
     <StyledEvents>
       {data
@@ -135,14 +144,10 @@ const Events = () => {
                 </div>
                 <div className="event-row--signup">
                   {event.isFree ? <p className="free">free</p> : ""}
-                  <button onClick={() => onSignUp()}>Sign Up</button>
+                  <button onClick={() => onSignUp(event.name, event.startDate, event.city)}>Sign Up</button>
                 </div>
-                {/* <Modal
-                  show={showModal}
-                  name={event.name}
-                  date={event.startDate}
-                  place={event.city}
-                /> */}
+                {showModal ? <Modal data={dataModal} close={closeModal}/> : ''}
+                
               </StyledRow>
             </div>
           );
