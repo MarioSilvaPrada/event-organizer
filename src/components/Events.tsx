@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Moment from "react-moment";
+
+import Modal from "./Modal";
 
 import data from "../data/events.json";
 import cities from "../data/cities.json";
 
-import { BLUE, GREEN, white } from "../config/styles";
+import { BLUE, GREEN, white, black } from "../config/styles";
 
 const StyledEvents = styled.div`
   display: flex;
@@ -16,6 +18,8 @@ const StyledEvents = styled.div`
     display: flex;
     flex-direction: column;
     margin: 0 5rem;
+    position: relative;
+
   }
 
   .event-date {
@@ -93,49 +97,58 @@ const StyledRow = styled.div`
   }
 `;
 
-const onSignUp = (x: string) => {
-  console.log(x);
-}
-
-const Events = () => (
-  <StyledEvents>
-    {data
-      .sort((a, b) => {
-        return +new Date(a.startDate) - +new Date(b.startDate);
-      })
-      .map((event, i, arr) => {
-        return (
-          <div className="event-group" key={i}>
-            {!arr[i - 1] || //check if is the first iteration
-            new Date(event.startDate).setHours(0, 0, 0, 0) !== // and check if the current date is different from the previous one
-              new Date(arr[i - 1].startDate).setHours(0, 0, 0, 0) ? ( // setHours to 0 in order to compare only the date itsel
-              <Moment className="event-date" format="dddd D MMM YYYY">
-                {event.startDate}
-              </Moment>
-            ) : (
-              ""
-            )}
-            <StyledRow>
-              <div className="event-row--description">
-                <Moment format="HH:mm ">{event.startDate}</Moment>
-                <div className="event-name">
-                  <p className="event-title">{event.name}</p>
-                  <p className="event-city">
-                    {cities.map(city =>
-                      city.id === event.city ? city.name : ""
-                    )}
-                  </p>
+const Events = () => {
+  const [showModal, setShowModal] = useState(false);
+  const onSignUp = () => {
+    setShowModal(true);
+  };
+  console.log(showModal)
+  return (
+    <StyledEvents>
+      {data
+        .sort((a, b) => {
+          return +new Date(a.startDate) - +new Date(b.startDate);
+        })
+        .map((event, i, arr) => {
+          return (
+            <div className="event-group" key={i}>
+              {!arr[i - 1] || //check if is the first iteration
+              new Date(event.startDate).setHours(0, 0, 0, 0) !== // and check if the current date is different from the previous one
+                new Date(arr[i - 1].startDate).setHours(0, 0, 0, 0) ? ( // setHours to 0 in order to compare only the date itsel
+                <Moment className="event-date" format="dddd D MMM YYYY">
+                  {event.startDate}
+                </Moment>
+              ) : (
+                ""
+              )}
+              <StyledRow>
+                <div className="event-row--description">
+                  <Moment format="HH:mm ">{event.startDate}</Moment>
+                  <div className="event-name">
+                    <p className="event-title">{event.name}</p>
+                    <p className="event-city">
+                      {cities.map(city =>
+                        city.id === event.city ? city.name : ""
+                      )}
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div className="event-row--signup">
-                {event.isFree ? <p className="free">free</p> : ""}
-                <button onCLick={() => onSignUp('test')}>Sign Up</button>
-              </div>
-            </StyledRow>
-          </div>
-        );
-      })}
-  </StyledEvents>
-);
+                <div className="event-row--signup">
+                  {event.isFree ? <p className="free">free</p> : ""}
+                  <button onClick={() => onSignUp()}>Sign Up</button>
+                </div>
+                {/* <Modal
+                  show={showModal}
+                  name={event.name}
+                  date={event.startDate}
+                  place={event.city}
+                /> */}
+              </StyledRow>
+            </div>
+          );
+        })}
+    </StyledEvents>
+  );
+};
 
 export default Events;
