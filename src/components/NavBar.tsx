@@ -18,6 +18,7 @@ const NavBarStyled = styled.div`
       justify-content: space-between;
       width: 12rem;
       cursor: pointer;
+      color: white;
   }
 `;
 
