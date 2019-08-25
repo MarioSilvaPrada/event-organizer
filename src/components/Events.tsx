@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Moment from "react-moment";
 
 import Modal from "./Modal";
+import Button from "./Button";
 
 import data from "../data/events.json";
 import cities from "../data/cities.json";
@@ -70,23 +71,6 @@ const StyledRow = styled.div`
     justify-content: center;
     align-items: center;
 
-    button {
-      cursor: pointer;
-      border: 3px solid ${BLUE};
-      padding: 0.7rem 1.8rem;
-      color: ${BLUE};
-      font-weight: bold;
-      cursor: pointer;
-      border-radius: 0.1rem;
-      margin-left: 5rem;
-    }
-
-    button:hover {
-      background: ${BLUE};
-      color: white;
-    }
-  }
-
   .free {
     font-weight: bold;
     background: ${GREEN}
@@ -94,24 +78,23 @@ const StyledRow = styled.div`
     padding: 0.4rem 0.5rem;
     border-radius: 0.3rem;
     text-transform: uppercase;
+    margin-right: 5rem;
   }
 `;
 
-
 const Events = () => {
   const [showModal, setShowModal] = useState(false);
-  const [dataModal, setDataModal] = useState({name:'',date:'', place:0});
+  const [dataModal, setDataModal] = useState({ name: "", date: "", place: 0 });
 
-  const onSignUp = (name:string, date:string, place:number) => {
-    setDataModal({name, date, place})
+  const onSignUp = (name: string, date: string, place: number) => {
+    setDataModal({ name, date, place });
     setShowModal(true);
   };
 
   const closeModal = () => {
-    setShowModal(false)
+    setShowModal(false);
   };
 
-  console.log(dataModal)
   return (
     <StyledEvents>
       {data
@@ -144,14 +127,18 @@ const Events = () => {
                 </div>
                 <div className="event-row--signup">
                   {event.isFree ? <p className="free">free</p> : ""}
-                  <button onClick={() => onSignUp(event.name, event.startDate, event.city)}>Sign Up</button>
+                  <Button
+                    event={() =>
+                      onSignUp(event.name, event.startDate, event.city)
+                    }
+                    content="Sign Up"
+                  />
                 </div>
-                {showModal ? <Modal data={dataModal} close={closeModal}/> : ''}
-                
               </StyledRow>
             </div>
           );
         })}
+      {showModal ? <Modal data={dataModal} close={closeModal} /> : ""}
     </StyledEvents>
   );
 };
