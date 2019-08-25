@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Moment from "react-moment";
 
-import Button from "./Button";
+import Button from "../config/Button";
 
 import { black, white } from "../config/styles";
 import cities from "../data/cities.json";
@@ -39,7 +39,7 @@ const StyledModal = styled.div`
     left: 25%;
   }
 
-  .modal-header{
+  .modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -50,7 +50,7 @@ const StyledModal = styled.div`
 
   .modal-header-description {
     align-self: center;
-    flex-grow:2;
+    flex-grow: 2;
   }
 
   .modal-header-close {
@@ -61,17 +61,15 @@ const StyledModal = styled.div`
 
   .modal-content {
     background: white;
-   align-self: flex-start;
     height: auto;
     margin: 0 3rem;
-   
+    text-align: start;
   }
 
-  .modal-btns{
+  .modal-btns {
     display: flex;
     justify-content: space-between;
     align-self: flex-end;
-   
   }
 `;
 
@@ -88,13 +86,13 @@ const Modal = (props: Props) => (
         You're about to sign up for <b>{props.data.name}</b>. This event takes
         place the <Moment format="Do MMMM ">{props.data.date}</Moment> in{" "}
         {cities.map(city => (city.id === props.data.place ? city.name : ""))}
-        <br/>
-        <br/>
+        <br />
+        <br />
         <p>Are you sure?</p>
       </div>
       <div className="modal-btns">
-        <Button  event={() => console.log('cancel')} content='Cancel' />
-        <Button event={() => console.log('join')} content='Join' />
+        <Button red event={props.close} content="Cancel" />
+        <Button green event={props.join} content="Join" />
       </div>
     </div>
   </StyledModal>

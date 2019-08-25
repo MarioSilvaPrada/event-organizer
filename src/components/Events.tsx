@@ -3,12 +3,14 @@ import styled from "styled-components";
 import Moment from "react-moment";
 
 import Modal from "./Modal";
-import Button from "./Button";
+import Button from "../config/Button";
+
 
 import data from "../data/events.json";
 import cities from "../data/cities.json";
 
 import { BLUE, GREEN, white, black } from "../config/styles";
+import { array } from "prop-types";
 
 const StyledEvents = styled.div`
   display: flex;
@@ -84,16 +86,22 @@ const StyledRow = styled.div`
 
 const Events = () => {
   const [showModal, setShowModal] = useState(false);
-  const [dataModal, setDataModal] = useState({ name: "", date: "", place: 0 });
+  const [dataEvent, setDataEvent] = useState({ name: "", date: "", place: 0 });
+  const [myEvents, setMyEvents] = useState();
 
   const onSignUp = (name: string, date: string, place: number) => {
-    setDataModal({ name, date, place });
+    setDataEvent({ name, date, place });
     setShowModal(true);
   };
 
   const closeModal = () => {
     setShowModal(false);
   };
+
+  const onJoin = () => {
+    setMyEvents(myEvents.push(dataEvent))
+    setShowModal(false);
+  }
 
   return (
     <StyledEvents>
@@ -127,7 +135,7 @@ const Events = () => {
                 </div>
                 <div className="event-row--signup">
                   {event.isFree ? <p className="free">free</p> : ""}
-                  <Button
+                  <Button 
                     event={() =>
                       onSignUp(event.name, event.startDate, event.city)
                     }
@@ -138,7 +146,7 @@ const Events = () => {
             </div>
           );
         })}
-      {showModal ? <Modal data={dataModal} close={closeModal} /> : ""}
+      {showModal ? <Modal data={dataEvent} close={closeModal} join={onJoin}/> : ""}
     </StyledEvents>
   );
 };
