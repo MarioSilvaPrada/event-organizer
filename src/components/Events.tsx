@@ -5,7 +5,6 @@ import Moment from "react-moment";
 import Modal from "./Modal";
 import Button from "../config/Button";
 
-
 import data from "../data/events.json";
 import cities from "../data/cities.json";
 
@@ -84,10 +83,11 @@ const StyledRow = styled.div`
   }
 `;
 
+
 const Events = () => {
   const [showModal, setShowModal] = useState(false);
   const [dataEvent, setDataEvent] = useState({ name: "", date: "", place: 0 });
-  const [myEvents, setMyEvents] = useState(['']);
+  const [myEvents, setMyEvents] = useState([]);
 
   const onSignUp = (name: string, date: string, place: number) => {
     setDataEvent({ name, date, place });
@@ -98,12 +98,12 @@ const Events = () => {
     setShowModal(false);
   };
 
-  const onJoin = (dataEvent: any) => {
-    let newArr = [...myEvents, dataEvent];
-    setMyEvents(newArr);
-    setShowModal(false);
-    console.log(myEvents);
-  }
+  // const onJoin = (name: string, date: string, place: number) => {
+  //   let newArr = [...myEvents, {name, date, place}]
+  //   setMyEvents(newArr);
+  //   setShowModal(false);
+  //   console.log(myEvents);
+  // }
 
   return (
     <StyledEvents>
@@ -148,7 +148,7 @@ const Events = () => {
             </div>
           );
         })}
-      {showModal ? <Modal data={dataEvent} close={closeModal} join={onJoin}/> : ""}
+      {showModal ? <Modal data={dataEvent} close={closeModal} /> : ""}
     </StyledEvents>
   );
 };

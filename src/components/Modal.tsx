@@ -7,15 +7,7 @@ import Button from "../config/Button";
 import { black, white } from "../config/styles";
 import cities from "../data/cities.json";
 
-interface Props {
-  close: any;
-  join: any,
-  data: {
-    name: string;
-    date: string;
-    place: number;
-  };
-}
+
 
 const StyledModal = styled.div`
   position: fixed;
@@ -95,10 +87,19 @@ const Modal = (props: Props) => (
       </div>
       <div className="modal-btns">
         <Button red event={props.close} content="Cancel" />
-        <Button green  event={props.join} content="Join" />
+        <Button green  event={() => console.log('test')} content="Join" />
       </div>
     </div>
   </StyledModal>
 );
+
+interface Props {
+  close: any,
+  data: {
+    name: string;
+    date: string;
+    place: number;
+  };
+}
 
 export default Modal;
