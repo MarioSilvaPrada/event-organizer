@@ -9,6 +9,7 @@ import cities from "../data/cities.json";
 
 interface Props {
   close: any;
+  join: any,
   data: {
     name: string;
     date: string;
@@ -34,9 +35,11 @@ const StyledModal = styled.div`
     width: 40rem;
     height: 20rem;
     background: white;
-    position: fixed;
-    top: 25%;
-    left: 25%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .modal-header {
@@ -92,7 +95,7 @@ const Modal = (props: Props) => (
       </div>
       <div className="modal-btns">
         <Button red event={props.close} content="Cancel" />
-        <Button green event={props.join} content="Join" />
+        <Button green  event={props.join} content="Join" />
       </div>
     </div>
   </StyledModal>

@@ -87,7 +87,7 @@ const StyledRow = styled.div`
 const Events = () => {
   const [showModal, setShowModal] = useState(false);
   const [dataEvent, setDataEvent] = useState({ name: "", date: "", place: 0 });
-  const [myEvents, setMyEvents] = useState();
+  const [myEvents, setMyEvents] = useState(['']);
 
   const onSignUp = (name: string, date: string, place: number) => {
     setDataEvent({ name, date, place });
@@ -98,9 +98,11 @@ const Events = () => {
     setShowModal(false);
   };
 
-  const onJoin = () => {
-    setMyEvents(myEvents.push(dataEvent))
+  const onJoin = (dataEvent: any) => {
+    let newArr = [...myEvents, dataEvent];
+    setMyEvents(newArr);
     setShowModal(false);
+    console.log(myEvents);
   }
 
   return (
