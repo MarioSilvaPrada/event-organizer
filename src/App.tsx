@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 
 import { RouteComponentProps } from "react-router-dom";
@@ -9,13 +9,21 @@ import Events from "./components/Events";
 import UserEvents from "./components/UserEvents";
 
 const App = ({ match }: RouteComponentProps<{ name: string }>) => {
-  let path = match.path;
-  console.log(path)
+  const [myEvents, setMyEvents] = useState<Array<string>>([]);
 
-  let component = path === '/allEvents' ? <Events /> : <UserEvents />
+  const onJoin: any = (data:any) => {
+    setMyEvents([...myEvents, data]);
+    console.log(myEvents);
+  }
+
+  // https://medium.com/@jrwebdev/react-hooks-in-typescript-88fce7001d0d
+
+  let path = match.path;
+
+  let component = path === "/allEvents" ? <Events event={onJoin}/> : <UserEvents />;
   return (
     <div className="App">
-      <NavBar name={path}/>
+      <NavBar name={path} />
       {component}
     </div>
   );

@@ -1,16 +1,17 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { StyledFunction } from "styled-components";
 
 import { Link, RouteComponentProps } from "react-router-dom";
 
-import { BLUE, GREEN } from "../config/styles";
+import { BLUE, LIGHT_BLUE } from "../config/styles";
 
 const NavBarStyled = styled.div`
   width: 100%;
   height: 5rem;
-  background: grey;
+  background: #d2fafb;
   display: flex;
   align-items: center;
+  border-bottom: 2px solid black;
 
   .logo {
     width: 20rem;
@@ -21,10 +22,11 @@ const NavBarStyled = styled.div`
     width: 12rem;
     cursor: pointer;
     color: white;
+    font-weight: bold;
   }
 
   a {
-    color: black;
+    color: grey;
   }
 `;
 
@@ -33,26 +35,44 @@ interface Props {
 }
 
 const NavBar = (props: Props) => {
-
   let path = props.name;
 
-  let color = path === '/allEvents' ? 'color: "red"' : '';
-  
+  const colorLink = (path: string) => {
+    if (path === "/allEvents") {
+      return (
+        <>
+          <Link
+            to={"/allEvents"}
+            style={{ textDecoration: "none", color: `${BLUE}` }}
+          >
+            <div className="all-events">All Events</div>
+          </Link>
+          <Link to={"/myEvents"} style={{ textDecoration: "none" }}>
+            <div className="my-events">My Events</div>
+          </Link>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <Link to={"/allEvents"} style={{ textDecoration: "none" }}>
+            <div className="all-events">All Events</div>
+          </Link>
+          <Link
+            to={"/myEvents"}
+            style={{ textDecoration: "none", color: `${BLUE}` }}
+          >
+            <div className="my-events">My Events</div>
+          </Link>
+        </>
+      );
+    }
+  };
+
   return (
     <NavBarStyled>
       <div className="logo">My Logo</div>
-      <div className="tabs">
-        <Link
-          {...props.name}
-          to={"/allEvents"}
-          style={{ textDecoration: "none", color }}
-        >
-          <div className="all-events">All Events</div>
-        </Link>
-        <Link to={"/myEvents"} style={{ textDecoration: "none" }}>
-          <div className="my-events">My Events</div>
-        </Link>
-      </div>
+      <div className="tabs">{colorLink(path)}</div>
     </NavBarStyled>
   );
 };

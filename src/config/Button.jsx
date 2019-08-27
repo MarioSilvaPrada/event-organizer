@@ -12,7 +12,8 @@ const StyledButton = styled.div`
   cursor: pointer;
   border-radius: 0.1rem;
   margin: 1rem;
-  color:${props => (props.red ? `${RED}` : props.green ? `${GREEN}` : `${BLUE}`)} 
+  color:${props => (props.red ? `${RED}` : props.green ? `${GREEN}` : `${BLUE}`)};
+  transition: 0.4s;
 
   &:hover {
     background: ${props => (props.red ? `${RED}` : props.green ? `${GREEN}` : `${BLUE}`)} 

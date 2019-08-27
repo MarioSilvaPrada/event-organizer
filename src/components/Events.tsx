@@ -8,13 +8,14 @@ import Button from "../config/Button";
 import data from "../data/events.json";
 import cities from "../data/cities.json";
 
-import { BLUE, GREEN, white, black } from "../config/styles";
+import { GREY, GREEN, white } from "../config/styles";
 import { array } from "prop-types";
 
 const StyledEvents = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  background: ${GREY};
 
   .event-group {
     display: flex;
@@ -37,6 +38,7 @@ const StyledRow = styled.div`
   align-items: center;
   padding: 2rem;
   border: 1px solid black;
+  background: ${white()};
 
   .event-row--description {
     display: flex;
@@ -83,11 +85,13 @@ const StyledRow = styled.div`
   }
 `;
 
+interface Props {
+  event: () => void;
+}
 
-const Events = () => {
+const Events = (props: Props) => {
   const [showModal, setShowModal] = useState(false);
   const [dataEvent, setDataEvent] = useState({ name: "", date: "", place: 0 });
-  const [myEvents, setMyEvents] = useState([]);
 
   const onSignUp = (name: string, date: string, place: number) => {
     setDataEvent({ name, date, place });
@@ -97,13 +101,6 @@ const Events = () => {
   const closeModal = () => {
     setShowModal(false);
   };
-
-  // const onJoin = (name: string, date: string, place: number) => {
-  //   let newArr = [...myEvents, {name, date, place}]
-  //   setMyEvents(newArr);
-  //   setShowModal(false);
-  //   console.log(myEvents);
-  // }
 
   return (
     <StyledEvents>
@@ -131,13 +128,21 @@ const Events = () => {
                     <p className="event-city">
                       {cities.map(city =>
                         city.id === event.city ? city.name : ""
-                      )}
+                      )}{" "}
+                      -{" "}
+                      <Moment format="H">
+                        {+new Date(event.endDate) - +new Date(event.startDate)}
+                      </Moment>
+                      h
+                      <Moment format="mm">
+                        {+new Date(event.endDate) - +new Date(event.startDate)}
+                      </Moment>
                     </p>
                   </div>
                 </div>
                 <div className="event-row--signup">
                   {event.isFree ? <p className="free">free</p> : ""}
-                  <Button 
+                  <Button
                     event={() =>
                       onSignUp(event.name, event.startDate, event.city)
                     }
@@ -148,7 +153,11 @@ const Events = () => {
             </div>
           );
         })}
-      {showModal ? <Modal data={dataEvent} close={closeModal} /> : ""}
+      {showModal ? (
+        <Modal data={dataEvent} close={closeModal} join={props.event} />
+      ) : (
+        ""
+      )}
     </StyledEvents>
   );
 };

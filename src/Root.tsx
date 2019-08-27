@@ -13,8 +13,8 @@ const Root = () => (
   <Router>
     <Switch>
       <Redirect exact from="/" to="/allEvents" />
-      <Route  path="/myEvents" component={App} />
       <Route  path="/allEvents" component={App} />
+      <Route  path="/myEvents" component={App} />
     </Switch>
   </Router>
 );

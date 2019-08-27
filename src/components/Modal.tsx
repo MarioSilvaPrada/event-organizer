@@ -87,7 +87,7 @@ const Modal = (props: Props) => (
       </div>
       <div className="modal-btns">
         <Button red event={props.close} content="Cancel" />
-        <Button green  event={() => console.log('test')} content="Join" />
+        <Button green  event={() => props.join(props.data)} content="Join" />
       </div>
     </div>
   </StyledModal>
@@ -95,6 +95,7 @@ const Modal = (props: Props) => (
 
 interface Props {
   close: any,
+  join: any,
   data: {
     name: string;
     date: string;
