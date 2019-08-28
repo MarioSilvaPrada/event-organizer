@@ -1,13 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import Moment from "react-moment";
+import { MdClose } from "react-icons/md";
 
 import Button from "../config/Button";
 
-import { black, white } from "../config/styles";
+import { black, RED, LIGHT_BLUE } from "../config/styles";
 import cities from "../data/cities.json";
-
-
 
 const StyledModal = styled.div`
   position: fixed;
@@ -38,7 +37,7 @@ const StyledModal = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: ${black(0.3)};
+    background: ${LIGHT_BLUE};
     border-bottom: 2px solid grey;
     height: 3rem;
   }
@@ -50,8 +49,9 @@ const StyledModal = styled.div`
 
   .modal-header-close {
     cursor: pointer;
-    color: red;
+    color: ${RED};
     margin-right: 1.5rem;
+    font-size: 1.5rem;
   }
 
   .modal-content {
@@ -73,9 +73,7 @@ const Modal = (props: Props) => (
     <div className="modal">
       <div className="modal-header">
         <span className="modal-header-description"> Join the Event</span>
-        <span className="modal-header-close" onClick={props.close}>
-          X
-        </span>
+        <MdClose className="modal-header-close" onClick={props.close} />
       </div>
       <div className="modal-content">
         You're about to sign up for <b>{props.data.name}</b>. This event takes
@@ -87,15 +85,15 @@ const Modal = (props: Props) => (
       </div>
       <div className="modal-btns">
         <Button red event={props.close} content="Cancel" />
-        <Button green  event={() => props.join(props.data)} content="Join" />
+        <Button green event={() => props.join(props.data)} content="Join" />
       </div>
     </div>
   </StyledModal>
 );
 
 interface Props {
-  close: any,
-  join: any,
+  close: any;
+  join: any;
   data: {
     name: string;
     date: string;

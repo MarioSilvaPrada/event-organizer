@@ -7,7 +7,6 @@ import {
 } from "react-router-dom";
 
 import App from "./App";
-import UserEvents from './components/UserEvents';
 
 const Root = () => (
   <Router>

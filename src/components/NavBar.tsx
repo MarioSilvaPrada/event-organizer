@@ -1,20 +1,21 @@
 import React from "react";
-import styled, { StyledFunction } from "styled-components";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-import { Link, RouteComponentProps } from "react-router-dom";
-
-import { BLUE, LIGHT_BLUE } from "../config/styles";
+import Logo from '../config/Logo/Logo.svg';
+import { BLUE } from "../config/styles";
 
 const NavBarStyled = styled.div`
   width: 100%;
-  height: 5rem;
+  height: 6.5rem;
   background: #d2fafb;
   display: flex;
   align-items: center;
   border-bottom: 2px solid black;
 
   .logo {
-    width: 20rem;
+    width: 8rem;
+    margin: 0 3rem;
   }
   .tabs {
     display: flex;
@@ -71,7 +72,7 @@ const NavBar = (props: Props) => {
 
   return (
     <NavBarStyled>
-      <div className="logo">My Logo</div>
+      <img className="logo" src={Logo} alt={'logo'}/>
       <div className="tabs">{colorLink(path)}</div>
     </NavBarStyled>
   );
