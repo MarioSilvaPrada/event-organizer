@@ -70,6 +70,7 @@ const StyledModal = styled.div`
 
 const Modal = (props: Props) => (
   <StyledModal>
+    {console.log(props)}
     <div className="modal">
       <div className="modal-header">
         <span className="modal-header-description"> Join the Event</span>
@@ -77,8 +78,8 @@ const Modal = (props: Props) => (
       </div>
       <div className="modal-content">
         You're about to sign up for <b>{props.data.name}</b>. This event takes
-        place the <Moment format="Do MMMM ">{props.data.date}</Moment> in{" "}
-        {cities.map(city => (city.id === props.data.place ? city.name : ""))}
+        place the <Moment format="Do MMMM ">{props.data.startDate}</Moment> in{" "}
+        {cities.map(city => (city.id === props.data.city ? city.name : ""))}
         <br />
         <br />
         <p>Are you sure?</p>
@@ -96,8 +97,8 @@ interface Props {
   join: any;
   data: {
     name: string;
-    date: string;
-    place: number;
+    startDate: string;
+    city: number;
   };
 }
 
