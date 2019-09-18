@@ -5,12 +5,12 @@ export const StyledEvents = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-bottom: 3rem;
+  margin: 0 15rem 3rem;
+
 
   .event-group {
     display: flex;
     flex-direction: column;
-    margin: 0 5rem;
     position: relative;
 
   }

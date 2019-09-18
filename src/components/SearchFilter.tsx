@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { BLUE } from "../config/styles";
 
 const StyledInput = styled.input`
-    width: 60%;
+    width: 50%;
     height: 3rem;
     font-size: 1.5rem;
     text-align: center;
